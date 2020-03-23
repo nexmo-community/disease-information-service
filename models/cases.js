@@ -4,6 +4,8 @@ const fetch   = require('node-fetch'),
       sources = require('../utilities/sources'),
       handleSmsReply = require('../utilities/smsReply');
 
+// This class parses html from another website to obtain information.
+// The information obtained is then used to create an SMS message.
 class Cases {
 
   static getCases({ to, from, country } = {}) {
@@ -13,14 +15,18 @@ class Cases {
       .then(response => response.text())
       .then(html => {
         let soup = new JSSoup(html);
+        
+        // Search table data for specified country
         const rows = soup.findAll('td');
         for (let i = 0; i < rows.length; i++) {
           if (rows[i].text === country) {
+            // Gather data for SMS
             const confirmed = rows[i + 1].text || '';
             const deceased = rows[i + 2].text || '';
             const recovered = rows[i + 3].text || '';
             const serious = rows[i + 4].text || '';
 
+            // Create message
             const message = `COVID-19: ${country}\n\
 Confirmed Cases: ${confirmed}\n\
 Deceased: ${deceased}\n\
@@ -29,6 +35,7 @@ Serious: ${serious}\n\n\
 Source: ${sources.ncov.source}`;
 
             if (message) {
+              // Send the SMS reply
               handleSmsReply({ 
                 to: to, 
                 from: from, 

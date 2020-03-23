@@ -32,7 +32,7 @@ class Sms {
           console.log(responseData.messages);
 
           if (responseData.messages[0]['status'] === '0') {
-            // TODO:
+            // Message was sent successfully
           } else {
             const errMsg = responseData.messages[0]['error-text'];
             console.log(`Message failed with error: ${errMsg}`);

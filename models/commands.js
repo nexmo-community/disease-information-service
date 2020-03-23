@@ -1,11 +1,15 @@
-const fetch     = require('node-fetch'),
-      JSSoup    = require('jssoup').default,
-      config    = require('../config/config'),
-      K         = require('../utilities/constants'),
-      Sms       = require('./sms'),
-      Cases = require('./cases'),
-      handleSmsReply = require('../utilities/smsReply');
+const fetch           = require('node-fetch'),
+      JSSoup          = require('jssoup').default,
+      config          = require('../config/config'),
+      K               = require('../utilities/constants'),
+      Sms             = require('./sms'),
+      Cases           = require('./cases'),
+      handleSmsReply  = require('../utilities/smsReply');
 
+// This class handles various SMS commands. If the sender's message 
+// matches any of the commands in the switch statements, the statements
+// following would be executed, otherwise the console will display
+// that the message was not a valid command.
 class Commands {
 
   static handleCommand({toNumber, fromNumber, command} = {}) {
