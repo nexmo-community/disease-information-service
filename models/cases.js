@@ -19,19 +19,21 @@ class Cases {
         // Search table data for specified country
         const rows = soup.findAll('td');
         for (let i = 0; i < rows.length; i++) {
-          if (rows[i].text === country) {
+          const rowText = rows[i].text;
+          const countryIndex = rowText.search(country);
+          if (countryIndex >= 0) {
             // Gather data for SMS
             const confirmed = rows[i + 1].text || '';
-            const deceased = rows[i + 2].text || '';
-            const recovered = rows[i + 3].text || '';
-            const serious = rows[i + 4].text || '';
+            const deceased = rows[i + 4].text || '';
+            const recovered = rows[i + 7].text || '';
+            const serious = rows[i + 8].text || '';
 
             // Create message
             const message = `COVID-19: ${country}\n\
-Confirmed Cases: ${confirmed}\n\
-Deceased: ${deceased}\n\
-Recovered: ${recovered}\n\
-Serious: ${serious}\n\n\
+Confirmed Cases: ${confirmed.replace(/\s+/g, '')}\n\
+Deceased: ${deceased.replace(/\s+/g, '')}\n\
+Recovered: ${recovered.replace(/\s+/g, '')}\n\
+Serious: ${serious.replace(/\s+/g, '')}\n\n\
 Source: ${sources.ncov.source}`;
 
             if (message) {
