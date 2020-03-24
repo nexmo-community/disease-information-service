@@ -1,30 +1,30 @@
 # Instant-SMS-Alert
-Instant-SMS-Alert is a project that utilizes an SMS API to retrieve instant updates on COVID-19 via SMS. The purpose of this project is to provide an example of how to implement an SMS alert/update system in response to disease epidemics.
+Instant-SMS-Alert is a demo project that utilizes an SMS API to retrieve instant updates on COVID-19 via SMS. The purpose of this project is to provide an example of how to implement an SMS alert/update system in response to disease epidemics.
 
-## Getting Started
-
-### Prerequisites
+## Prerequisites
 - Install node.js
-- Install ngrok
 - Set up the app in the Vonage Communications API 
+- Install ngrok (if running locally)
+- Heroku account (if running remotely on Heroku)
 
-### Installing (for developers)
-Clone the source locally and cd into the project.
+## Running this demo locally on your machine
+1. Clone the source locally and cd into the project.
 ```
+$ git clone <clone with https url>
 $ cd Instant-SMS-Alert
 ```
 
-Install project dependencies.
+2. Install project dependencies.
 ```
 $ npm install
 ```
 
-Create .env file.
+3. Create .env file.
 ```
 $ touch .env
 ```
 
-Configure environment variables in .env file.
+4. Configure environment variables in .env file.
 ```
 PORT = <port number>
 SECRET_OR_KEY = <secret or key>
@@ -36,10 +36,35 @@ VONAGE_APPLICATION_ID = <your Vonage application id>
 PRODUCTION = <production type>
 ```
 
-Run the app 
+5. Start ngrok
+```
+ngrok http <port number>
+```
+
+6. Link your Vonage number to the /webhooks/inbound-sms webhook endpoint.
+
+7. Run the app 
 ```
 npm run dev
 ```
+
+8. View the demo project on the browser
+Go to http://localhost:<port number> and type your phone number.
+
+## Running this demo remotely on Heroku
+1. Create a new app on Heroku.
+
+2. Fork this repository.
+
+3. Connecting your Github account to your app on Heroku.
+
+4. Choose a branch to deploy and start the deploy process.
+
+5. Configure environment variables.
+
+6. Link your Vonage number to the /webhooks/inbound-sms webhook endpoint.
+
+7. Go to the app url and type your phone number.
 
 ## Built With
 - Vonage Communications API
