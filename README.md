@@ -66,6 +66,37 @@ Go to http://localhost:<port number> and type your phone number.
 
 7. Go to the app url and type your phone number.
 
+## How to modify the code for your project
+Here is an explanation of some of the project files and to modify them for your own use.
+
+### utilities/constants.js
+These are constants that hold commands that are read in from inbound messages.
+
+#### Example usage
+```
+const commands = {
+  cmds: {
+    newCommand: {
+      desc: 'Enter the description of your command.',
+      cmd: 'newCommand'
+    }
+  }
+};
+```
+
+### models/commands.js
+This file contains a function handleCommand to take in the toNumber, fromNumber, and command message. The command message is then searched through a switch statement to see if the command is valid or not.
+
+#### Example usage
+```
+switch(command) {
+  case 'newCommand':
+    // Statements to execute when the
+    // command is found.
+    break;
+}
+```
+
 ## Built With
 - Vonage Communications API
 - Node.js, Express.js
