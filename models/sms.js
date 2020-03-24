@@ -1,10 +1,10 @@
 const config = require('../config/config');
 const Nexmo = require('nexmo');
 const nexmo = new Nexmo({
-  apiKey: config.nexmoApiKey,
-  apiSecret: config.nexmoApiSecret,
-  applicationId: config.nexmoApplicationId,
-  privateKey: config.nexmoPrivateKey
+  apiKey: config.vonageApiKey,
+  apiSecret: config.vonageApiSecret,
+  applicationId: config.vonageApplicationId,
+  privateKey: config.vonagePrivateKey
 });
 
 class Sms {
