@@ -64,8 +64,17 @@ Source: ${sources.ncov.source}`;
       .then(html => {
         let soup = new JSSoup(html);
         const row = soup.findAll('li');
-        const cases = row[10].text;
-        const deaths = row[11].text;
+        const cases = row[9].text;
+        const deaths = row[10].text;
+
+        if (cases.search('Total cases') < 0) {
+          cases = '';
+        }
+
+        if (deaths.search('Total deaths') < 0) {
+          deaths = '';
+        }
+
         const message = `COVID-19: U.S. at a Glance\n\
 ${cases}\n\
 ${deaths}\n\
