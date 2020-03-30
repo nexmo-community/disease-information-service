@@ -1,5 +1,6 @@
-const config = require('../config/config');
-const Nexmo = require('nexmo');
+const Nexmo = require('nexmo'),
+      config = require('../config/config');
+
 const nexmo = new Nexmo({
   apiKey: config.vonageApiKey,
   apiSecret: config.vonageApiSecret,
@@ -9,14 +10,10 @@ const nexmo = new Nexmo({
 
 class Sms {
 
-  /**
-   * @desc Sends an SMS using Nexmo API
-   * @param {String} fromNumber
-   * @param {String} toNumber
-   * @param {String} message
-   * @pre: fromNumber, toNumber, and message contain data
-   * @post: Send an SMS if all data is valid, otherwise don't send SMS
-   */
+  // Sends an SMS using Vonage API.
+  // fromNumber, toNumber, and message must all contain 
+  // data. If data was valid, an SMS is sent, otherwise 
+  // an error occurs.
   static sendSms({fromNumber, toNumber, message} = {}) {
     if (!fromNumber && !toNumber && !message) { return; }
 
@@ -34,6 +31,7 @@ class Sms {
           if (responseData.messages[0]['status'] === '0') {
             // Message was sent successfully
           } else {
+            // Message unable to send
             const errMsg = responseData.messages[0]['error-text'];
             console.log(`Message failed with error: ${errMsg}`);
           }

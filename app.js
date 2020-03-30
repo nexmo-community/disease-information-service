@@ -3,8 +3,8 @@ const express     = require('express'),
       bodyParser  = require('body-parser'),
       config      = require('./config/config');
 
-const handleSmsReply = require('./utilities/smsReply');
-      Commands       = require('./models/commands');
+const Commands  = require('./models/commands'),
+      Sms       = require('./models/sms');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -12,50 +12,56 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 
+// Renders the index.html file
 app.get('/', (req, res) => {
   res.render('index');
 });
 
+// Retrieves the phone number entered from index.html
 app.post('/number', (req, res) => {
-  const fromNumber = req.body.phoneNumber;
-  console.log(`Number entered: ${fromNumber}`);
+  // Logging the number entered for debugging purposes
+  console.log(`Number entered: ${req.body.phoneNumber}`);
 
-  const toNumber = config.vonageNumber;
-  const messageToSend = 'Welcome to this app!\nReply !commands to see a list of commands.\nReply !cases to view the number of cases around the world.';
+  // Configure message to be sent to the phone number entered
+  // from the Vonage number.
+  const toNumber = req.body.phoneNumber;
+  const fromNumber = config.vonageNumber;
+  const message = 'Welcome to this app!\nReply !commands to see a list of commands.\nReply !cases to view the number of cases around the world.';
 
-  handleSmsReply({
-    to: toNumber,
-    from: fromNumber,
-    message: messageToSend
-  });
-
+  // Send SMS message
+  Sms.sendSms({ fromNumber, toNumber, message });
+  
+  // Redirect to index route after post request completes
   res.redirect('/');
 });
 
+// Inbound SMS endpoint
 app
   .route('/webhooks/inbound-sms')
   .get(handleInboundSms)
   .post(handleInboundSms);
 
-// Executed when an Sms is sent from a regular phone number 
-// to a virtual number.
+// Executed when an Sms is sent from a regular phone 
+// number to a virtual number.
 function handleInboundSms(request, response) {
   const params = Object.assign(request.query, request.body);
   console.log(params);
 
-  const toNumber = params.to;
-  const fromNumber = params.msisdn;
-  const message = params.text;
+  // Retrieve message information
+  const recipient = params.to;
+  const sender = params.msisdn;
+  const command = params.text;
 
-  console.log(`toNumber: ${toNumber}`);
-  console.log(`fromNumber: ${fromNumber}`);
-  console.log(`message: ${message}`);
+  // Log message details for debugging purposes
+  console.log(`${sender} sent a message to ${recipient}: ${command}`);
 
-  Commands.handleCommand({ 
-    toNumber: toNumber,
-    fromNumber: fromNumber,
-    command: message
-  });
+  // Now a message is going to be sent to the sender from
+  // the recipient. The fromNumber is a Vonage number.
+  const toNumber = sender;
+  const fromNumber = recipient;
+
+  // Checks the command is valid then sends the SMS.
+  Commands.sendSms({ fromNumber, toNumber, command });
 
   response.status(204).send();
 };
