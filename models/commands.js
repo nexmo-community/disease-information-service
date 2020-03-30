@@ -1,3 +1,14 @@
+// How to modify for own use:
+//
+// Add commands to the constants file and then add the 
+// command execution in the switch statement. For cases, 
+// fromNumber and toNumber should be passed to know where 
+// to send the SMS, source is the url to be parsed for 
+// data, and country is the specified country to look for.
+//
+// Note: This code does not feature every country and sources used
+// may not be completely accurate.
+
 const fetch           = require('node-fetch'),
       JSSoup          = require('jssoup').default,
       config          = require('../config/config'),

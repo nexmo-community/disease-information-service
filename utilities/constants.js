@@ -1,3 +1,14 @@
+// How to modify for own use:
+//
+// This file contains the commands that are used for
+// inbound SMS messages. The command is written as
+// follows:
+//
+// <command>: {
+//  cmd: <The command that the user enters>,
+//  desc: <Describes what the command does>
+// }
+
 const sources = require('./sources');
 
 const constants = {

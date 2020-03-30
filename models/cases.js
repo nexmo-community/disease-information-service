@@ -1,3 +1,10 @@
+// How to modify for own use:
+//
+// Add a source to the switch statement that will parse 
+// the information needed. JSSoup is needed to parse the 
+// html and obtain the text that is needed to create the 
+// message.
+
 const fetch   = require('node-fetch'),
       JSSoup  = require('jssoup').default,
       Sms     = require('./sms'),
