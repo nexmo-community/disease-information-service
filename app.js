@@ -66,6 +66,8 @@ function handleInboundSms(request, response) {
   response.status(204).send();
 };
 
+// Run the app on the specified port. If no port number is specified
+// in the .env file, then by default it will run on port 8080.
 const port = config.port;
 app.listen(port, () => {
   console.log(`Server running on port: ${port}`);

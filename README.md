@@ -1,5 +1,8 @@
 # Instant-SMS-Alert
-Instant-SMS-Alert is a demo project that utilizes an SMS API to retrieve instant updates on COVID-19 via SMS. The purpose of this project is to provide an example of how to implement an SMS alert/update system in response to disease epidemics.
+Instant-SMS-Alert is a demo project that utilizes an SMS API to retrieve instant updates on COVID-19 via SMS. The purpose of this project is to provide an example of how to implement an SMS alert/update system in response to disease epidemics. 
+
+## Limitations
+At the time of creating this project, no known APIs for updates on diseases cases are available; this project parses html from websites to retrieve data. The issue with using this method rather than being able to call an API means that the code relies on the websites used to maintain their structure of where specific elements are placed in the DOM.
 
 ## Prerequisites
 - Install node.js
@@ -70,29 +73,49 @@ Go to http://localhost:<port number> and type your phone number.
 Here is an explanation of some of the project files and to modify them for your own use.
 
 ### utilities/constants.js
-These are constants that hold commands that are read in from inbound messages.
-
-#### Example usage
-```
-const commands = {
-  cmds: {
-    newCommand: {
-      desc: 'Enter the description of your command.',
-      cmd: 'newCommand'
-    }
+These are constants that hold commands that are read in from inbound messages. Commands are written in the following format:
+```javascript
+  <command>: {
+    cmd: <The command that the user enters>,
+    desc: <Describes what the command does>
   }
-};
 ```
 
 ### models/commands.js
-This file contains a function handleCommand to take in the toNumber, fromNumber, and command message. The command message is then searched through a switch statement to see if the command is valid or not.
-
-#### Example usage
-```
+This file contains a function sendSms to take in the toNumber, fromNumber, and command message. The command message is then searched through a switch statement to see if the command is valid or not. Using the constants file, the switch statement can be modified as follows:
+```javascript
 switch(command) {
-  case 'newCommand':
+  case K.<Your new command>.cmd:
     // Statements to execute when the
     // command is found.
+    break;
+}
+```
+
+### utilities/sources.js
+These are constants for the sources used to retrieve data. Sources are written in the following format:
+```javascript
+  <source name>: {
+    html: <URL of the data to be fetched>,
+    source: <source name>
+  }
+```
+
+### models/cases.js
+This file uses jssoup to parse html. The function sendSms takes in a fromNumber, toNumber, source, and country to retrieve data then issue an SMS message. The source is used in the switch statement to identify which instructions to execute next. Using the sources file, the switch statement can be modified as follows:
+```javascript
+switch(source) {
+  case sources.<Your source name>.html:
+    fetch(sources.<Your source name>.html)
+      .then(response => response.text())
+      .then(html => {
+        let soup = new JSSoup(html);
+
+        // Add statements to fetch the data
+      })
+      .catch(err => {
+        console.log(err);
+      });
     break;
 }
 ```
