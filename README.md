@@ -6,8 +6,8 @@ At the time of creating this project, no known APIs for updates on diseases case
 
 ## Prerequisites
 - Install node.js
-- Set up the app in the Vonage Communications API 
-- Install ngrok (if running locally)
+- Set up the app in the Vonage Communications API using the [SMS API](https://www.vonage.com/communications-apis/sms/)
+- Install ngrok (if running locally). Refer to the [docs](https://ngrok.com/docs)
 - Heroku account (if running remotely on Heroku)
 
 ## Running this demo locally on your machine
@@ -125,4 +125,4 @@ switch(source) {
 - Node.js, Express.js
 
 ## License
-MIT
+[MIT license](LICENSE)
