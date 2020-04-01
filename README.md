@@ -51,8 +51,7 @@ ngrok http <port number>
 npm run dev
 ```
 
-8. View the demo project on the browser
-Go to localhost:<port number> and type your phone number.
+8. View the demo project on the browser through localhost and enter in your phone number.
 
 ## Running this demo remotely on Heroku
 1. Create a new app on Heroku.
