@@ -44,7 +44,7 @@ PRODUCTION = <production type>
 ngrok http <port number>
 ```
 
-6. Link your Vonage number to the /webhooks/inbound-sms webhook endpoint.
+6. Link your Vonage application and number to the /webhooks/inbound-sms webhook endpoint.
 
 7. Run the app 
 ```
