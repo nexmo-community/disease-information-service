@@ -52,7 +52,7 @@ npm run dev
 ```
 
 8. View the demo project on the browser
-Go to http://localhost:<port number> and type your phone number.
+Go to localhost:<port number> and type your phone number.
 
 ## Running this demo remotely on Heroku
 1. Create a new app on Heroku.
