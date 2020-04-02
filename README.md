@@ -30,12 +30,9 @@ $ touch .env
 4. Configure environment variables in .env file.
 ```
 PORT = <port number>
-SECRET_OR_KEY = <secret or key>
 VONAGE_NUMBER = <your Vonage number>
 VONAGE_API_KEY = <your Vonage api key>
 VONAGE_API_SECRET = <your Vonage api secret>
-PRIVATE_KEY_FILE_PATH = <path to your private key generated>
-VONAGE_APPLICATION_ID = <your Vonage application id>
 PRODUCTION = <production type>
 ```
 
